@@ -17,8 +17,6 @@
 package vm
 
 import (
-	"errors"
-
 	"github.com/ethereum/go-ethereum/params"
 )
 
@@ -26,10 +24,14 @@ import (
 // the rules.
 func LookupInstructionSet(rules params.Rules) (JumpTable, error) {
 	switch {
-	case rules.IsVerkle:
-		return newCancunInstructionSet(), errors.New("verkle-fork not defined yet")
+	case rules.IsBogota:
+		return newBogotaInstructionSet(), nil
+	case rules.IsAmsterdam:
+		return newAmsterdamInstructionSet(), nil
+	case rules.IsOsaka:
+		return newOsakaInstructionSet(), nil
 	case rules.IsPrague:
-		return newCancunInstructionSet(), errors.New("prague-fork not defined yet")
+		return newPragueInstructionSet(), nil
 	case rules.IsCancun:
 		return newCancunInstructionSet(), nil
 	case rules.IsShanghai:
